@@ -12,6 +12,7 @@
   --stone:#d9dadb;
   --paper:#ecedee;
   --fog:#c8cacc;
+  --mineral:#949595;
   --ink:#1c1c1a;
   --ink-soft:#4a4845;
   --hair:rgba(28,28,26,.18);
@@ -43,7 +44,7 @@ section::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160
 .sr-d5{transition-delay:.6s}
 
 /* ── nav ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(201,198,192,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
 .nav-in{max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);height:64px;display:flex;align-items:center;justify-content:space-between}
 .logo{font-size:15px;letter-spacing:.42em;font-weight:400}
 .nav-r{display:flex;align-items:center;gap:28px}
@@ -61,12 +62,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(201,198,192,
 .rule{width:38px;height:1px;background:var(--ink);opacity:.4;margin:26px 0}
 
 /* ── hero ── */
-#hero{background:#bab7b0;min-height:100vh;padding:0;overflow:hidden}
+#hero{background:var(--mineral);min-height:100vh;padding:0;overflow:hidden}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ── philosophy sequence — statement, states, one system ── */
 #philosophy{background:var(--stone)}
-#philosophy::before{background:linear-gradient(180deg,#bab7b0,var(--stone))}
+#philosophy::before{background:linear-gradient(180deg,var(--mineral),var(--stone))}
 .phi-statement{font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.25;letter-spacing:0;max-width:600px}
 .phi-states{margin-top:clamp(80px,12vh,120px);display:flex;flex-direction:column;gap:clamp(70px,13vh,130px)}
 .phi-states span{display:block;font-weight:300;font-size:clamp(19px,2.2vw,26px);letter-spacing:.09em;color:var(--ink-soft)}
@@ -181,9 +182,6 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
   #hero{min-height:auto;padding:88px 0 40px}
   .hero-img{position:static;width:100%;height:auto;object-fit:contain}
   .dec-grid{grid-template-columns:1fr;row-gap:64px}
-
-  /* mobile fix 3 — cooler header, harmonized with hero instead of the old warm tone */
-  nav{background:rgba(217,218,219,.86)}
 
   /* mobile fix 1 — plain radial gradient on the section itself, no blur/border-radius blob
      (iOS Safari can show hard rectangular seams when clipping a blurred, irregularly-shaped element) */
