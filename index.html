@@ -117,8 +117,8 @@ h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-he
 .dec-notify input{flex:1;min-width:0;background:transparent;border:none;border-bottom:1px solid var(--hair);color:var(--ink);font-family:var(--f);font-weight:300;font-size:11.5px;letter-spacing:.02em;padding:5px 0;outline:none;transition:border-color .3s}
 .dec-notify input::placeholder{color:var(--ink-soft);opacity:.65}
 .dec-notify input:focus{border-color:var(--ink)}
-.dec-notify button{flex:none;background:transparent;border:none;border-bottom:1px solid var(--ink-soft);color:var(--ink-soft);font-family:var(--f);font-size:9px;letter-spacing:.16em;padding:5px 0;cursor:pointer;white-space:nowrap;transition:color .3s,border-color .3s}
-.dec-notify button:hover{color:var(--ink);border-color:var(--ink)}
+.dec-notify button{flex:none;background:transparent;border:none;color:var(--ink-soft);opacity:.6;font-family:var(--f);font-weight:300;font-size:11px;letter-spacing:.02em;padding:5px 0;cursor:pointer;white-space:nowrap;transition:opacity .3s,color .3s}
+.dec-notify button:hover{opacity:1;color:var(--ink)}
 .dec-notify.hide{display:none}
 .dec-notify-msg{display:none;margin-top:18px;font-size:10.5px;line-height:1.32;letter-spacing:.03em;color:var(--ink-soft)}
 .dec-notify-msg.show{display:block}
@@ -666,7 +666,7 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
         <span class="dec-soon">Informieren, sobald FOCUS erscheint.</span>
         <form class="dec-notify" data-state="FOCUS">
           <input type="email" placeholder="E-Mail" required>
-          <button type="submit">BENACHRICHTIGE MICH</button>
+          <button type="submit">Benachrichtige mich</button>
         </form>
         <div class="dec-notify-msg">Danke. Wir melden uns.</div>
       </div>
@@ -676,7 +676,7 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
         <span class="dec-soon">Informieren, sobald BALANCE erscheint.</span>
         <form class="dec-notify" data-state="BALANCE">
           <input type="email" placeholder="E-Mail" required>
-          <button type="submit">BENACHRICHTIGE MICH</button>
+          <button type="submit">Benachrichtige mich</button>
         </form>
         <div class="dec-notify-msg">Danke. Wir melden uns.</div>
       </div>
