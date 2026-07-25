@@ -715,11 +715,18 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.sr').forEach(el => io.observe(el));
 
 /* ─── Knowledge accordion ─── */
+let kSavedScrollY = null;
 document.querySelectorAll('.k-row').forEach(r => {
   const toggle = () => {
     const open = r.classList.contains('open');
+    if (!open) kSavedScrollY = window.scrollY;
     document.querySelectorAll('.k-row').forEach(o => o.classList.remove('open'));
-    if (!open) r.classList.add('open');
+    if (!open) {
+      r.classList.add('open');
+    } else if (kSavedScrollY !== null) {
+      window.scrollTo({ top: kSavedScrollY, behavior: 'smooth' });
+      kSavedScrollY = null;
+    }
     r.querySelector('.k-more').firstChild.textContent = r.classList.contains('open') ? 'SCHLIESSEN ' : 'MEHR INFORMATIONEN ';
   };
   r.onclick = toggle;
