@@ -59,6 +59,7 @@ Systematischer Aufbau der technischen SEO-Grundlage, jeweils mit Vorab-Bestandsa
 - **Pre-launch Fix 6 — Checkout Validation** (QA-Durchlauf, keine Code-Änderung) — Systematische Prüfung des gesamten Checkout-Pfads. Zentrales Ergebnis: die im QA-Audit als "vermutlich Sandboxing-Artefakt" eingestufte Vermutung zum Shopify-Skript-Ladefehler wurde **abschließend widerlegt** — direkter `curl` gegen die reale Shopify-CDN-URL liefert einen echten, von Shopifys eigener Infrastruktur ausgelieferten 404 (Cloudflare-Header, echte Shopify-404-Seite), kein Testumgebungs-Artefakt. Das SDK-Widget kann daher auch in Produktion nicht laden, bis die korrekte, aktuelle Shopify-Embed-URL im Adminbereich geprüft wird. Der Fallback-Mechanismus (`#fallbackBtn`, direkte Warenkorb-Weiterleitung) wurde als zuverlässig funktionierend bestätigt. Aus Sicherheitsgründen keine echte Cross-Domain-Navigation zur Live-Domain ausgelöst, um kein produktives System ungewollt zu beeinflussen.
 - **LAUNCH_CHECKLIST.md erstellt** (`docs/LAUNCH_CHECKLIST.md`) — Vom Gründer vorgegebene Checklistenstruktur (Technik/Shop/Recht/Marketing/Soft Launch) mit dem tatsächlichen, verifizierten Projektstand abgeglichen. Neuer Befund dabei: **im gesamten Projekt existiert kein Favicon** (kein `<link rel="icon">`, keine Icon-Datei) — bislang an keiner Stelle thematisiert.
 - **Pre-launch Fix 7 — Accessibility Final Pass** (`Pre-launch Fix 7 – Accessibility Final Pass`) — Gezielte, auf real bestätigte Probleme beschränkte Barrierefreiheits-Korrekturen auf allen 4 Seiten; ausdrücklich kein Ziel eines perfekten Lighthouse-Scores, keine optische Veränderung des bestehenden Designsystems. Behoben: fehlender Tastaturfokus-Indikator auf dem zentralen Kaufbutton (`#fallbackBtn` auf `energy.html`, durch `all:unset` vollständig ohne Fokusanzeige) — `:focus-visible`-Outline in `var(--ink)` ergänzt; fehlende Landmark-Struktur (`<main>` auf allen 4 Seiten ergänzt, keine CSS-Kollisionen); fehlende Formular-Labels bei den FOCUS/BALANCE-Notify-Formularen (visuell verstecktes `<label>`, keine optische Änderung); fehlende ARIA-Semantik bei den 5 Wissenswelt-Akkordeon-Elementen (`role="button"` + dynamisches `aria-expanded`, per Klick und Tastatur verifiziert); schwacher Fokus-Indikator der Notify-E-Mail-Felder (`:focus-visible`-Outline ergänzt, bestehende `border-color`-Änderung bleibt erhalten); zu geringer Textkontrast bei `.dec-soon` (FOCUS/BALANCE-Bildunterschriften, 2.73:1 → 4.63:1), `.p-legal` auf `energy.html` (2.05:1 → 4.63:1) und dem Datenschutz-Datumsvermerk ("Stand: Juli 2026", 3.03:1 → 4.61:1) — jeweils nur Opazität einer bestehenden Farbe erhöht, keine neue Farbe eingeführt. Bewusst NICHT geändert: Kontrast der "BALANCE."-Überschrift (Markenfarbe `--balance`, 2.08:1) — selbst bei Opazität 1.0 werden rechnerisch nur 2.65:1 erreicht, eine echte Behebung wäre nur durch Änderung des Farbwerts selbst möglich, was der expliziten Vorgabe "keine neuen Farben" widerspräche; Kontrast des "Benachrichtige mich"-Buttons (2.94:1) — die zurückhaltende Opazität dieses Elements war eine explizite, in dieser Session getroffene Design-Entscheidung des Gründers, deren Rücknahme ohne Rückfrage der Vorgabe "bestehende Gestaltung besitzt höchste Priorität" widersprochen hätte. Vollständig verifiziert per Playwright: Tab-Reihenfolge auf allen 4 Seiten, Tastaturaktivierung der Akkordeons (Enter), Fokus-Sichtbarkeit aller relevanten interaktiven Elemente, Mobile (390 px, kein neuer Overflow), Konsole fehlerfrei.
+- **Pre-launch Fix 8 — Resolve mobile scroll jank on ENERGY page** (`Pre-launch Fix 8 – Resolve mobile scroll jank on ENERGY page`) — Reproduzierter Fehler: auf `energy.html` ruckelten/sprangen "STATES", "ENERGY." und "Calm activation." beim Zurückscrollen zum Preis-/CTA-Bereich auf Mobile (getestet 390×844, 393×852, 430×932). Root Cause empirisch bestätigt (Playwright, Bounding-Rect- und `classList`-Protokollierung über mehrere Scroll-Zyklen): der `IntersectionObserver` in `energy.html` entfernte die Klasse `vis` jedes Mal, wenn ein `.sr`-Element den Viewport verließ — auch nach oben. Da `.frame{min-height:auto}` auf Mobile greift, ist der `#product`-Bereich höher als ein Viewport; bereits das Scrollen zum Preis-/CTA-Bereich schiebt den Kopfbereich (STATES/ENERGY/Calm activation.) aus dem sichtbaren Bereich, wodurch `vis` entfernt wurde. Beim Zurückscrollen wurde die 1s-Reveal-Transition (Opacity/TranslateY) dadurch jedes Mal neu abgespielt — das war das beobachtete Ruckeln/Springen. Kein Performance-/Compositing-Problem, keine Bild-/Font-Ladeursache, keine Sticky-/Fixed-Interferenz. Kleinstmöglicher Fix (reines JS, keine CSS-Änderung): im `IntersectionObserver`-Callback wird `vis` nur noch beim ersten Sichtbarwerden gesetzt und das Element danach per `io.unobserve()` nicht mehr weiter beobachtet — die initiale Eintrittsanimation bleibt unverändert, ein erneutes Entfernen/Wiederabspielen ist strukturell ausgeschlossen. Änderung ist auf `energy.html` beschränkt (eigene, unabhängige Kopie des Observer-Codes; `index.html` unberührt). Verifiziert: 5 Scroll-Zyklen (abwechselnd langsam/schnell) auf allen 3 Mobile-Viewports, Halten am CTA-Bereich, Reload, Tablet (820×1180), Desktop (1440×900) — überall stabil (`opacity:1`, keine Transform-Restauration, feste Position), keine Regression an Produktbild/Preis/Button/Navigation, kein horizontaler Overflow, Konsole fehlerfrei.
 
 ---
 
@@ -116,3 +117,36 @@ Vom Gründer am 2026-07-31 explizit bestätigter Status (zum Zeitpunkt der urspr
 - Verantwortlich: Gordon Owens Mason, Hangäckerhöfe 5, 69126 Heidelberg
 - Kern-Design-Tokens: `--stone:#d9dadb`, `--paper:#ecedee`, `--ink:#1c1c1a`, `--ink-soft:#4a4845`, `--energy:#9c523c`, Schriftart `Jost`
 - Weitere Berichte: `docs/seo-bestandsaufnahme.md`, `docs/pre-launch-quality-audit.md`
+
+---
+
+## 6. Aktuelle Roadmap (Stand: 2026-07-31, nach Pre-launch Fix 7)
+
+### Phase
+Pre-Launch.
+
+### Aktuelle Aufgabe
+Launch Readiness — Abarbeitung der in Abschnitt 3 gelisteten Launch-Blocker.
+
+### Nächster Sprint (Empfehlung, noch nicht vom Gründer bestätigt)
+**Widerruf ergänzen** — Widerrufsbelehrung + Widerrufsformular. Begründung: einziger verbleibender Launch-Blocker ohne Abhängigkeit von einem externen Konto (im Unterschied zum Shopify-URL-Fix, der Zugriff auf den Shopify-Adminbereich voraussetzt) und damit sofort umsetzbar.
+
+### Danach (Empfehlung)
+**Shopify-Buy-Button-Skript-URL korrigieren** (setzt Prüfung im Shopify-Adminbereich voraus, siehe Fix 6) + **Zahlungsarten-Übersicht** ergänzen + **MwSt.-Hinweis** (`.p-vat`) aktivieren, Formulierung bereits geklärt (§ 19 UStG, siehe Abschnitt 5). Drei kleine, voneinander unabhängige technische Ergänzungen.
+
+### Langfristig
+Manuelle Testbestellung auf `intrinse.eu`, Cross-Browser-Kontrolle (Safari/Firefox), Favicon ergänzen — danach Soft Launch mit 200 Dosen gemäß bestätigter Geschäftsentscheidung (Abschnitt 5).
+
+---
+
+## Launch Ready wenn
+
+- [ ] **Checkout funktioniert** — offen. Shopify-Buy-Button-Skript liefert einen bestätigten 404 (Fix 6); der Fallback-Mechanismus funktioniert zuverlässig, ersetzt aber keinen echten SDK-Checkout.
+- [ ] **Rechtstexte vollständig** — offen. Widerrufsbelehrung und Widerrufsformular fehlen vollständig (Legal Readiness Audit). Impressum und Datenschutz sind vollständig und designangeglichen.
+- [x] **Cookie Consent** — erledigt. Implementiert und vollständig getestet (Fix 5).
+- [ ] **Shopify eingebunden** — teilweise. SDK ist im Code konfiguriert (Domain, Storefront-Token, Variant-ID), die Skript-URL lädt aber nicht (siehe Checkout). Erst nach URL-Korrektur vollständig.
+- [ ] **Testbestellung erfolgreich** — offen. Bewusst noch nicht durchgeführt (Fix 6), um kein produktives System ungewollt zu beeinflussen.
+- [ ] **Domain live** — nicht aus dem Code feststellbar. Reine Hosting-/DNS-Frage.
+- [ ] **Search Console** — nicht aus dem Code feststellbar. Externe Kontoeinrichtung.
+- [ ] **Analytics** — nicht vorhanden. Aktuell kein Tracking/Analytics im Code (empirisch verifiziert im Rahmen der Cookie-Consent-Analyse). Ob das für den Launch gewünscht ist, ist eine offene Entscheidung des Gründers, keine Codebasis-Aufgabe im engeren Sinn.
+- [ ] **Soft Launch vorbereitet** — teilweise. Geschäftsentscheidung bestätigt (200 Dosen, Abschnitt 5); organisatorische Vorbereitung (Freunde, Coaches, Feedback-Prozess) ist nicht aus dem Code feststellbar.
