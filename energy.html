@@ -41,7 +41,7 @@
 </script>
 <!-- Google Fonts loads only after consent — see consent.js -->
 <script defer src="consent.js"></script>
-<script src="https://cdn.shopify.com/shopifycloud/buy-button-storefront/dist/buy-button.min.js" defer></script>
+<script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js" defer></script>
 <style>
 :root{
   --stone:#d9dadb;
@@ -182,6 +182,9 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
 const SHOPIFY = {
   domain: 'intrinse.eu',
   storefrontAccessToken: '74828bac658db67d3a3e6379663f9de2',
+  products: {
+    ENERGY: '10310119686473'
+  },
   variants: {
     ENERGY: '54898857640265'
   }
@@ -210,15 +213,31 @@ window.addEventListener('load', () => {
   if (!window.ShopifyBuy || SHOPIFY.storefrontAccessToken.startsWith('YOUR_')) return;
   const client = ShopifyBuy.buildClient({domain: SHOPIFY.domain, storefrontAccessToken: SHOPIFY.storefrontAccessToken});
   ShopifyBuy.UI.onReady(client).then(ui => {
-    document.getElementById('fallbackBtn').style.display = 'none';
+    const mount = document.getElementById('shopify-buy-mount');
     ui.createComponent('product', {
-      id: SHOPIFY.variants.ENERGY,
-      node: document.getElementById('shopify-buy-mount'),
+      id: SHOPIFY.products.ENERGY,
+      node: mount,
       options: {
         product:{contents:{img:false,title:false,price:false},text:{button:'CHOOSE ENERGY.'}},
         cart:{text:{title:'CART',button:'CHECKOUT'}}
       }
     });
+    // The widget's iframe is inserted immediately regardless of whether the
+    // underlying product fetch succeeds, so only hide the fallback once the
+    // iframe has actually rendered real content — otherwise a failed fetch
+    // (e.g. invalid token) would hide the only working way to buy.
+    let attempts = 0;
+    const check = setInterval(() => {
+      attempts++;
+      const iframe = mount.querySelector('iframe');
+      const rendered = iframe && iframe.contentDocument && iframe.contentDocument.body && iframe.contentDocument.body.childElementCount > 0;
+      if (rendered) {
+        document.getElementById('fallbackBtn').style.setProperty('display', 'none', 'important');
+        clearInterval(check);
+      } else if (attempts > 20) {
+        clearInterval(check);
+      }
+    }, 250);
   });
 });
 </script>
