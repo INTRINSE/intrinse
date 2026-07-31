@@ -760,13 +760,19 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
 
 <script>
 /* ─── Scroll reveal — retriggers every time ─── */
+/* Debounced: fast scrolling can flip an element's intersection state back and forth
+   within milliseconds, restarting its transition mid-flight each time and producing
+   visible flicker. Only apply a state change once it holds steady briefly. */
+const visTimers = new Map();
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting || e.target.classList.contains('open')) {
-      e.target.classList.add('vis');
-    } else {
-      e.target.classList.remove('vis');
-    }
+    const el = e.target;
+    const shouldShow = e.isIntersecting || el.classList.contains('open');
+    if (visTimers.has(el)) clearTimeout(visTimers.get(el));
+    visTimers.set(el, setTimeout(() => {
+      el.classList.toggle('vis', shouldShow);
+      visTimers.delete(el);
+    }, 100));
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 document.querySelectorAll('.sr').forEach(el => io.observe(el));
