@@ -1,0 +1,12 @@
+{
+  "name": "intrinse-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "INTRINSE — statische Website + Vercel Serverless Function für die IT-Recht Kanzlei Rechtstext-Schnittstelle.",
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.0"
+  }
+}
