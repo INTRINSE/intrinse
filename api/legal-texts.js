@@ -66,6 +66,23 @@ function sanitizeLegalHtml(html) {
     .replace(/javascript:/gi, '');
 }
 
+// Escape any "%" not followed by two valid hex digits, so a stray literal
+// "%" (e.g. inside "19%") doesn't make decodeURIComponent throw for the
+// entire field. Valid %XX (and multi-byte %XX%XX UTF-8) sequences are left
+// untouched so real percent-encoding still decodes correctly.
+function sanitizePercentEncoding(str) {
+  return str.replace(/%(?![0-9A-Fa-f]{2})/g, '%25');
+}
+
+// PHP's urlencode() — the most common server-side encoder for this kind of
+// payload — encodes spaces as "+" rather than "%20". decodeURIComponent
+// leaves "+" untouched, so it must be converted before decoding.
+function lenientDecodeURIComponent(str) {
+  const withSpaces = str.replace(/\+/g, ' ');
+  const sanitized = sanitizePercentEncoding(withSpaces);
+  return decodeURIComponent(sanitized);
+}
+
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -203,9 +220,10 @@ module.exports = async function handler(req, res) {
 
   let decodedHtml;
   try {
-    decodedHtml = decodeURIComponent(encodedHtml);
+    decodedHtml = lenientDecodeURIComponent(encodedHtml);
   } catch (e) {
-    return sendError(res, 6, 'rechtstext_html could not be URL-decoded.');
+    console.error('rechtstext_html decode failed:', e.message, 'raw excerpt:', encodedHtml.slice(0, 200));
+    return sendError(res, 6, `rechtstext_html could not be URL-decoded (${e.message}). Excerpt: ${encodedHtml.slice(0, 80)}`);
   }
   const safeHtml = sanitizeLegalHtml(decodedHtml);
 
