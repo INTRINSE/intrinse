@@ -32,6 +32,7 @@
     "url": "https://intrinse.eu/energy.html",
     "priceCurrency": "EUR",
     "price": "44.00",
+    "availability": "https://schema.org/PreOrder",
     "seller": {
       "@type": "Organization",
       "name": "INTRINSE"
@@ -95,6 +96,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
   background:rgba(156,82,60,.05)!important;color:var(--ink)!important;border-radius:0!important;
   transition:background .35s ease,border-color .35s ease,box-shadow .35s ease}
 .cart button:hover{background:rgba(156,82,60,.1)!important;border-color:rgba(156,82,60,.85)!important;box-shadow:0 8px 22px rgba(156,82,60,.16)}
+.cart button:disabled{cursor:default;opacity:.55;box-shadow:none!important}
+.cart button:disabled:hover{background:rgba(156,82,60,.05)!important;border-color:rgba(156,82,60,.5)!important;box-shadow:none!important}
 .cart button:focus-visible, .shopify-buy__btn:focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px}
 .cart button span.arw{transition:transform .3s}
 .cart button:hover span.arw{transform:translateX(9px)}
@@ -155,8 +158,8 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
 
         <div class="cart sr sr-d3">
           <div id="shopify-buy-mount"></div>
-          <button id="fallbackBtn" type="button">CHOOSE ENERGY. <span class="arw">&rarr;</span></button>
-          <div id="shopify-status"></div>
+          <button id="fallbackBtn" type="button" disabled aria-disabled="true">LAUNCHING SOON.</button>
+          <div id="shopify-status">INTRINSE startet in Kürze. Die erste Charge befindet sich in der finalen Produktion.</div>
         </div>
 
         <div class="p-ship sr sr-d3"><span>—</span><span>Kostenfreier Versand • 1–3 Werktage</span></div>
@@ -179,6 +182,10 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
 </footer>
 
 <script>
+// Pre-launch: product is visible, purchase is disabled. Flip to false at launch
+// to restore the Shopify Buy Button and the cart fallback.
+const PRE_LAUNCH = true;
+
 const SHOPIFY = {
   domain: 'intrinse.eu',
   storefrontAccessToken: '74828bac658db67d3a3e6379663f9de2',
@@ -200,17 +207,19 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 document.querySelectorAll('.sr').forEach(el => io.observe(el));
 
-document.getElementById('fallbackBtn').onclick = () => {
-  const id = SHOPIFY.variants.ENERGY;
-  if (!id || id.startsWith('YOUR_')) {
-    document.getElementById('shopify-status').textContent = 'Shopify is not connected yet. Add your store domain and variant IDs in the SHOPIFY config.';
-    return;
-  }
-  window.location.href = `https://${SHOPIFY.domain}/cart/${id}:1`;
-};
+if (!PRE_LAUNCH) {
+  document.getElementById('fallbackBtn').onclick = () => {
+    const id = SHOPIFY.variants.ENERGY;
+    if (!id || id.startsWith('YOUR_')) {
+      document.getElementById('shopify-status').textContent = 'Shopify is not connected yet. Add your store domain and variant IDs in the SHOPIFY config.';
+      return;
+    }
+    window.location.href = `https://${SHOPIFY.domain}/cart/${id}:1`;
+  };
+}
 
 window.addEventListener('load', () => {
-  if (!window.ShopifyBuy || SHOPIFY.storefrontAccessToken.startsWith('YOUR_')) return;
+  if (PRE_LAUNCH || !window.ShopifyBuy || SHOPIFY.storefrontAccessToken.startsWith('YOUR_')) return;
   const client = ShopifyBuy.buildClient({domain: SHOPIFY.domain, storefrontAccessToken: SHOPIFY.storefrontAccessToken});
   ShopifyBuy.UI.onReady(client).then(ui => {
     const mount = document.getElementById('shopify-buy-mount');
