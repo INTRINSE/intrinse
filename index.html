@@ -152,18 +152,6 @@ h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-he
 .dec-1 .dec-arrow{color:var(--energy)}
 .dec-item:hover .dec-arrow{opacity:1;transform:translateX(8px)}
 .dec-soon{display:block;font-size:10.5px;letter-spacing:.03em;color:var(--ink-soft);margin-top:22px;opacity:.85}
-.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-.dec-notify{margin-top:18px;display:flex;align-items:flex-end;gap:12px;max-width:230px}
-.dec-notify input{flex:1;min-width:0;background:transparent;border:none;border-bottom:1px solid var(--hair);color:var(--ink);font-family:var(--f);font-weight:300;font-size:11.5px;letter-spacing:.02em;padding:5px 0;outline:none;transition:border-color .3s}
-.dec-notify input::placeholder{color:var(--ink-soft);opacity:.65}
-.dec-notify input:focus{border-color:var(--ink)}
-.dec-notify input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.dec-notify button{flex:none;background:transparent;border:none;color:var(--ink-soft);opacity:.6;font-family:var(--f);font-weight:300;font-size:11px;letter-spacing:.02em;padding:5px 0;cursor:pointer;white-space:nowrap;transition:opacity .3s,color .3s}
-.dec-notify button:hover{opacity:1;color:var(--ink)}
-.dec-notify.hide{display:none}
-.dec-notify-msg{display:none;margin-top:18px;font-size:10.5px;line-height:1.32;letter-spacing:.03em;color:var(--ink-soft)}
-.dec-notify-msg.show{display:block}
 
 /* ── knowledge ── */
 #knowledge{background:var(--paper)}
@@ -710,30 +698,18 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
       <a href="energy.html" class="dec-item dec-1 sr sr-d1">
         <span class="dec-name">ENERGY.</span>
         <span class="dec-tag">Calm activation.</span>
-        <span class="dec-soon">Launching soon.</span>
+        <span class="dec-soon">The first state.</span>
         <span class="dec-arrow">&rarr;</span>
       </a>
       <div class="dec-item dec-2 sr sr-d2">
         <span class="dec-name">FOCUS.</span>
         <span class="dec-tag">Mental precision.</span>
-        <span class="dec-soon">Informieren, sobald FOCUS erscheint.</span>
-        <form class="dec-notify" data-state="FOCUS">
-          <label for="focus-email" class="vh">E-Mail</label>
-          <input type="email" id="focus-email" placeholder="E-Mail" required>
-          <button type="submit">Benachrichtige mich</button>
-        </form>
-        <div class="dec-notify-msg">Danke. Wir melden uns.</div>
+        <span class="dec-soon">Coming next.</span>
       </div>
       <div class="dec-item dec-3 sr sr-d3">
         <span class="dec-name">BALANCE.</span>
         <span class="dec-tag">Regeneration.</span>
-        <span class="dec-soon">Informieren, sobald BALANCE erscheint.</span>
-        <form class="dec-notify" data-state="BALANCE">
-          <label for="balance-email" class="vh">E-Mail</label>
-          <input type="email" id="balance-email" placeholder="E-Mail" required>
-          <button type="submit">Benachrichtige mich</button>
-        </form>
-        <div class="dec-notify-msg">Danke. Wir melden uns.</div>
+        <span class="dec-soon">In development.</span>
       </div>
     </div>
   </div>
@@ -796,16 +772,6 @@ document.querySelectorAll('.k-row').forEach(r => {
   r.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } };
 });
 document.querySelectorAll('.k-link').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
-
-/* ─── Notify me — FOCUS / BALANCE waitlist ─── */
-/* No mailing-list provider connected yet; wire this up (e.g. Klaviyo, Mailchimp) before launch. */
-document.querySelectorAll('.dec-notify').forEach(form => {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    form.classList.add('hide');
-    form.nextElementSibling.classList.add('show');
-  });
-});
 </script>
 
 <div id="consent-banner" class="consent-banner" hidden role="dialog" aria-live="polite" aria-label="Cookie-Einstellungen">
