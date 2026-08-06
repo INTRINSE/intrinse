@@ -110,7 +110,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 #philosophy::before{background:linear-gradient(180deg,var(--mineral),var(--stone))}
 .phi-statement{font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.25;letter-spacing:0;max-width:600px}
 .phi-states{margin-top:clamp(80px,12vh,120px);display:flex;flex-direction:column;gap:clamp(70px,13vh,130px)}
-.phi-states span{display:block;font-weight:300;font-size:clamp(19px,2.2vw,26px);letter-spacing:.09em;color:var(--ink-soft)}
+.phi-states span{display:block;font-family:var(--f2);font-weight:600;font-size:clamp(19px,2.2vw,26px);letter-spacing:.09em;color:var(--ink-soft)}
 .phi-onesystem{margin-top:clamp(140px,20vh,220px);font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.32;letter-spacing:.06em}
 
 h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-height:1.32}
@@ -124,7 +124,7 @@ h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-he
     radial-gradient(ellipse at 44% 46%,rgba(199,104,72,.24) 0%,rgba(199,104,72,.18) 28%,transparent 60%),
     radial-gradient(ellipse at 50% 50%,rgba(156,74,58,.24) 0%,rgba(156,74,58,.17) 38%,rgba(156,74,58,.08) 58%,transparent 80%);
   filter:blur(90px);pointer-events:none;z-index:1}
-.en-h{font-size:clamp(40px,7vw,84px);font-weight:200;letter-spacing:.06em;line-height:1;color:var(--ink);position:relative;z-index:2}
+.en-h{font-family:var(--f2);font-size:clamp(40px,7vw,84px);font-weight:600;letter-spacing:.06em;line-height:1;color:var(--ink);position:relative;z-index:2}
 .en-tag{font-size:clamp(19px,2.4vw,26px);font-weight:300;line-height:1.32;margin-top:clamp(56px,9vh,110px);position:relative;z-index:2}
 .en-body{font-size:14px;line-height:1.32;color:var(--ink-soft);margin-top:6px;max-width:46ch;position:relative;z-index:2}
 
@@ -145,11 +145,12 @@ h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-he
 
 .dec-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:clamp(20px,3.5vw,56px);margin-top:clamp(80px,13vh,150px);position:relative;z-index:2}
 .dec-item{min-width:0}
-.dec-name{display:block;font-family:var(--f2);font-size:clamp(27px,3.2vw,43px);font-weight:400;letter-spacing:.35em;line-height:1;white-space:nowrap}
+.dec-name{display:block;font-family:var(--f2);font-size:clamp(27px,3.2vw,43px);font-weight:600;letter-spacing:.35em;line-height:1;white-space:nowrap}
 .dec-1 .dec-name{color:#af6243}
 .dec-2 .dec-name{color:var(--focus);opacity:.78}
 .dec-3 .dec-name{color:var(--balance);opacity:.78}
 .dec-tag{display:block;font-family:var(--f2);font-weight:400;font-size:12.5px;line-height:1.32;color:var(--ink-soft);margin-top:16px}
+.state-name{font-family:var(--f2);font-weight:600}
 .dec-arrow{display:inline-block;margin-top:16px;padding:8px 16px 8px 0;font-size:19px;font-weight:500;color:var(--ink-soft);opacity:.8;transition:transform .4s ease,opacity .4s ease}
 .dec-1 .dec-arrow{color:var(--energy)}
 .dec-item:hover .dec-arrow{opacity:1;transform:translateX(8px)}
@@ -406,17 +407,17 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
         <div class="k-num">02</div>
         <div>
           <div class="k-h">STATES</div><div class="k-line"></div>
-          <div class="k-p">ENERGY. FOCUS. BALANCE.<br>Drei Zustände. Ein System.</div>
+          <div class="k-p"><span class="state-name">ENERGY.</span> <span class="state-name">FOCUS.</span> <span class="state-name">BALANCE.</span><br>Drei Zustände. Ein System.</div>
         </div>
         <div class="k-more">MEHR INFORMATIONEN <span>&rarr;</span></div>
         <div class="k-body"><div class="k-body-in">
           <h4>Der Rhythmus menschlicher Leistungsfähigkeit</h4>
           <p>Der menschliche Organismus befindet sich nicht in einem konstanten Zustand. Im Laufe eines Tages verändern sich Aufmerksamkeit, Energie, Regeneration und Leistungsfähigkeit kontinuierlich. Leistungsfähigkeit ist deshalb kein dauerhafter Zustand – sie ist ein dynamischer Prozess.</p>
-          <h4>ENERGY — Aktivierung</h4>
+          <h4><span class="state-name">ENERGY</span> — Aktivierung</h4>
           <p>Jede Form von Bewegung beginnt mit Aktivierung. Der Organismus mobilisiert Ressourcen. Aufmerksamkeit richtet sich nach außen. Handlung wird möglich. Ein gesunder Aktivierungszustand fühlt sich nicht hektisch an. Er schafft Klarheit für den nächsten Schritt.</p>
-          <h4>FOCUS — Konzentration</h4>
+          <h4><span class="state-name">FOCUS</span> — Konzentration</h4>
           <p>Konzentration unter Belastung. Wahre Konzentration zeigt sich selten in ruhigen Situationen. Sie zeigt sich dort, wo Anforderungen steigen. Wo Reize zunehmen. Wo Ermüdung einsetzt. Genau in diesen Momenten entscheidet sich, ob Aufmerksamkeit stabil bleibt oder zerfällt.</p>
-          <h4>BALANCE — Regeneration</h4>
+          <h4><span class="state-name">BALANCE</span> — Regeneration</h4>
           <p>Jeder Anpassungsprozess benötigt Erholung. Gewebe wird erneuert. Energiespeicher werden aufgefüllt. Das Nervensystem verarbeitet Belastungen und Reize. Regeneration ist kein Gegensatz zu Leistungsfähigkeit – sie ist eine ihrer Voraussetzungen.</p>
           <h4>Ein System statt einzelner Momente</h4>
           <p>Keiner dieser Zustände ist wichtiger als die anderen. Nachhaltige Leistungsfähigkeit entsteht dort, wo sie miteinander in Balance stehen. Drei Zustände. Ein System.</p>

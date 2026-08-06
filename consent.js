@@ -8,7 +8,7 @@
    Decision is stored in localStorage; the banner only ever runs once. */
 (function () {
   var KEY = 'intrinse-consent';
-  var FONT_CSS_URL = 'https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Montserrat:wght@400&display=swap';
+  var FONT_CSS_URL = 'https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Montserrat:wght@600&display=swap';
 
   function loadFonts() {
     if (document.getElementById('gfonts-stylesheet')) return;
