@@ -1,13 +1,13 @@
 /* INTRINSE — minimal cookie consent
-   Gates the custom typefaces (Jost, Nunito Sans). Self-hosted under /fonts/
-   as of this version — no third-party request to Google is made at all,
-   but loading is still deferred until consent to keep behavior/timing
-   identical to before and to match the description in datenschutz.html.
-   The Shopify Buy Button script is not gated here — it sets no cookies on
-   load (verified), only the Shopify-hosted checkout a visitor explicitly
-   navigates to might set cookies, which is covered separately in
-   datenschutz.html. No analytics, no marketing scripts exist in this
-   project, so no further categories are needed.
+   Typefaces (Jost, Nunito Sans) are self-hosted under /fonts/ — same-origin
+   static files, no third-party request, no data sent anywhere. They load
+   unconditionally, independent of the consent choice below.
+   The banner itself is kept for transparency/control even though nothing
+   left on this site actually requires prior consent: no analytics, no
+   marketing scripts, no third-party font CDN. The Shopify Buy Button
+   script sets no cookies on load (verified) — only the Shopify-hosted
+   checkout a visitor explicitly navigates to might, which is covered
+   separately in datenschutz.html.
    Decision is stored in localStorage; the banner only ever runs once. */
 (function () {
   var KEY = 'intrinse-consent';
@@ -21,6 +21,8 @@
     sheet.href = FONT_CSS_URL;
     document.head.appendChild(sheet);
   }
+
+  loadFonts();
 
   function showBanner() {
     var banner = document.getElementById('consent-banner');
@@ -42,15 +44,12 @@
 
   function setChoice(value) {
     localStorage.setItem(KEY, value);
-    if (value === 'accepted') loadFonts();
     hideBanner();
   }
 
   /* Runs after DOM parsing (script has [defer]), so #consent-banner exists. */
   var choice = localStorage.getItem(KEY);
-  if (choice === 'accepted') {
-    loadFonts();
-  } else if (choice !== 'declined') {
+  if (choice !== 'accepted' && choice !== 'declined') {
     showBanner();
   }
 
