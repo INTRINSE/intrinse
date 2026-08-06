@@ -1,0 +1,14 @@
+@font-face{
+  font-family:'Jost';
+  font-style:normal;
+  font-weight:200 500;
+  font-display:swap;
+  src:url('/fonts/jost-variable.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Nunito Sans';
+  font-style:normal;
+  font-weight:400 600;
+  font-display:swap;
+  src:url('/fonts/nunito-sans-variable.woff2') format('woff2');
+}

@@ -1,5 +1,8 @@
 /* INTRINSE — minimal cookie consent
-   Gates the only third-party resource that needs prior consent: Google Fonts.
+   Gates the custom typefaces (Jost, Nunito Sans). Self-hosted under /fonts/
+   as of this version — no third-party request to Google is made at all,
+   but loading is still deferred until consent to keep behavior/timing
+   identical to before and to match the description in datenschutz.html.
    The Shopify Buy Button script is not gated here — it sets no cookies on
    load (verified), only the Shopify-hosted checkout a visitor explicitly
    navigates to might set cookies, which is covered separately in
@@ -8,23 +11,14 @@
    Decision is stored in localStorage; the banner only ever runs once. */
 (function () {
   var KEY = 'intrinse-consent';
-  var FONT_CSS_URL = 'https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Nunito+Sans:wght@400;600&display=swap';
+  var FONT_CSS_URL = '/fonts/fonts.css';
 
   function loadFonts() {
     if (document.getElementById('gfonts-stylesheet')) return;
-    var pre1 = document.createElement('link');
-    pre1.rel = 'preconnect';
-    pre1.href = 'https://fonts.googleapis.com';
-    var pre2 = document.createElement('link');
-    pre2.rel = 'preconnect';
-    pre2.href = 'https://fonts.gstatic.com';
-    pre2.crossOrigin = '';
     var sheet = document.createElement('link');
     sheet.id = 'gfonts-stylesheet';
     sheet.rel = 'stylesheet';
     sheet.href = FONT_CSS_URL;
-    document.head.appendChild(pre1);
-    document.head.appendChild(pre2);
     document.head.appendChild(sheet);
   }
 
