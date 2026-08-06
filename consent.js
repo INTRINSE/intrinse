@@ -1,5 +1,5 @@
 /* INTRINSE — minimal cookie consent
-   Typefaces (Jost, Nunito Sans) are self-hosted under /fonts/ — same-origin
+   Typefaces (Jost, Montserrat) are self-hosted under /fonts/ — same-origin
    static files, no third-party request, no data sent anywhere. They load
    unconditionally, independent of the consent choice below.
    The banner itself is kept for transparency/control even though nothing

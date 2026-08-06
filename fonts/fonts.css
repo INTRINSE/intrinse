@@ -6,9 +6,9 @@
   src:url('/fonts/jost-variable.woff2') format('woff2');
 }
 @font-face{
-  font-family:'Nunito Sans';
+  font-family:'Montserrat';
   font-style:normal;
   font-weight:400 600;
   font-display:swap;
-  src:url('/fonts/nunito-sans-variable.woff2') format('woff2');
+  src:url('/fonts/montserrat-variable.woff2') format('woff2');
 }
