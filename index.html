@@ -108,6 +108,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 /* ── philosophy sequence — statement, states, one system ── */
 #philosophy{background:var(--stone)}
 #philosophy::before{background:linear-gradient(180deg,var(--mineral),var(--stone))}
+#philosophy::after{content:"";position:absolute;bottom:-80px;left:0;right:0;height:160px;pointer-events:none;z-index:1;background:linear-gradient(180deg,var(--stone),#ccced0)}
 .phi-statement{font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.25;letter-spacing:0;max-width:600px}
 .phi-states{margin-top:clamp(80px,12vh,120px);display:flex;flex-direction:column;gap:clamp(70px,13vh,130px)}
 .phi-states span{display:block;font-family:var(--f2);font-weight:600;font-size:28px;line-height:1;letter-spacing:.35em;color:var(--ink-soft)}
@@ -199,8 +200,9 @@ h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-he
 .rv{font-size:clamp(24px,4.2vw,50px);font-weight:200;line-height:1.32;letter-spacing:.16em}
 .rv-p{font-size:14.5px;color:var(--ink-soft);line-height:2;margin-top:30px;max-width:46ch;margin-left:auto;margin-right:auto}
 
-footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;line-height:1.32;letter-spacing:.04em}
-.f-g{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
+footer{position:relative;background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;line-height:1.32;letter-spacing:.04em}
+footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160px;pointer-events:none;z-index:1;background:linear-gradient(180deg,#caccce,var(--ink))}
+.f-g{position:relative;z-index:2;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
 .f-g a:hover{color:#fff}
 .f-links{display:flex;flex-wrap:wrap;gap:12px 26px}
 .f-logo{font-family:var(--f2);font-weight:600;letter-spacing:.4em;color:#fff;font-size:13px}
@@ -226,7 +228,8 @@ footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;
   /* mobile fix 1+2 — same technique for the stacked Choose Your State atmosphere,
      with distinct color zones and a real (but soft) gap between Focus and Balance */
   .dec-atmosphere{flex-direction:column;background:linear-gradient(180deg,
-      rgba(156,74,58,.13) 0%,
+      transparent 0%,
+      rgba(156,74,58,.13) 8%,
       rgba(156,74,58,.04) 16%,
       transparent 26%,
       transparent 34%,

@@ -30,8 +30,9 @@ h2{font-weight:400;font-size:13px;letter-spacing:.24em;margin-top:40px;margin-bo
 p{font-size:14px;color:var(--ink-soft);line-height:1.9;margin-bottom:10px}
 #legal-body div{color:var(--ink-soft);line-height:1.9}
 
-footer{background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;line-height:1.32;letter-spacing:.04em}
-.f-g{max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
+footer{position:relative;background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;line-height:1.32;letter-spacing:.04em}
+footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160px;pointer-events:none;z-index:1;background:linear-gradient(180deg,var(--stone),var(--ink))}
+.f-g{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
 .f-g a:hover{color:#fff}
 .f-links{display:flex;flex-wrap:wrap;gap:12px 26px}
 .f-logo{font-family:var(--f2);font-weight:600;letter-spacing:.4em;color:#fff;font-size:13px}
