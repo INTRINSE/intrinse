@@ -227,20 +227,20 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
 
   /* mobile fix 1+2 — same technique for the stacked Choose Your State atmosphere,
      with distinct color zones and a real (but soft) gap between Focus and Balance */
-  .dec-atmosphere{flex-direction:column;background:linear-gradient(180deg,
-      transparent 0%,
-      rgba(156,74,58,.13) 8%,
-      rgba(156,74,58,.04) 16%,
-      transparent 26%,
-      transparent 34%,
-      rgba(60,85,91,.11) 46%,
-      rgba(60,85,91,.03) 58%,
-      transparent 63%,
-      transparent 66%,
-      rgba(163,143,121,.12) 78%,
-      rgba(163,143,121,.05) 92%,
-      transparent 100%)}
+  .dec-atmosphere{flex-direction:column}
   .dec-beam::before{display:none}
+
+  /* mobile fix 3 — per-state glow anchored near the lettering itself
+     (same principle as desktop's .dec-beam blobs, behind the text via
+     paint order), built from gradient stops only, no filter:blur —
+     blurring an oversized element that gets clipped by an ancestor's
+     overflow:hidden is a known source of hard rectangular seams on
+     iOS Safari (see mobile fix 1 above) */
+  .dec-name{position:relative}
+  .dec-name::before{content:"";position:absolute;left:-18%;right:-18%;top:-90%;bottom:-90%;pointer-events:none}
+  .dec-1 .dec-name::before{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(175,98,67,.4) 0%,rgba(175,98,67,.22) 32%,rgba(175,98,67,.09) 58%,rgba(175,98,67,.03) 78%,transparent 92%)}
+  .dec-2 .dec-name::before{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(60,85,91,.22) 0%,rgba(60,85,91,.12) 32%,rgba(60,85,91,.05) 58%,rgba(60,85,91,.02) 78%,transparent 92%)}
+  .dec-3 .dec-name::before{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(163,143,121,.36) 0%,rgba(163,143,121,.2) 32%,rgba(163,143,121,.08) 58%,rgba(163,143,121,.03) 78%,transparent 92%)}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
