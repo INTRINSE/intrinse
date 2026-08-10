@@ -25,7 +25,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 .nav-r a{font-size:10px;letter-spacing:.3em;font-weight:400}
 
 .wrap{max-width:760px;margin:0 auto;padding:140px clamp(20px,5vw,64px) 100px}
-h1{font-weight:200;font-size:clamp(32px,5vw,52px);letter-spacing:.14em;margin-bottom:48px;text-transform:uppercase;overflow-wrap:break-word}
+h1{font-weight:200;font-size:clamp(32px,5vw,52px);letter-spacing:.14em;margin-bottom:48px;text-transform:uppercase}
+/* Long German compound words ("Datenschutzerklärung", "Geschäftsbedingungen") can exceed the
+   column width on narrow screens. Prefer real hyphenation over a raw mid-word break;
+   overflow-wrap is only a last-resort safety net if hyphenation can't find a break point. */
+#legal-title{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
 h2{font-weight:400;font-size:13px;letter-spacing:.24em;margin-top:40px;margin-bottom:14px}
 h2:first-of-type{margin-top:0}
 p{font-size:14px;color:var(--ink-soft);line-height:1.9;margin-bottom:10px}
@@ -52,7 +56,12 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
 .consent-btn{all:unset;box-sizing:border-box;font-family:var(--f);font-size:11px;letter-spacing:.08em;color:#b4b1ab;cursor:pointer;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.25);transition:color .3s ease,border-color .3s ease}
 .consent-btn:hover,.consent-btn:focus-visible{color:#fff;border-color:#fff}
 .consent-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
-@media(max-width:600px){.consent-in{flex-direction:column;align-items:flex-start}}
+@media(max-width:600px){
+  .consent-in{flex-direction:column;align-items:flex-start}
+  /* Shrink the title floor a bit on very small phones so long compound words need fewer,
+     shallower hyphenation breaks. */
+  #legal-title{font-size:clamp(26px,7.5vw,32px)}
+}
 </style>
 </head>
 <body>
