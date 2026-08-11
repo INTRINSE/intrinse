@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Impressum — INTRINSE</title>
 <link rel="canonical" href="https://intrinse.eu/impressum.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Impressum der INTRINSE Website: Anbieterkennzeichnung und Kontaktdaten gemäß § 5 TMG.">
 <!-- Self-hosted fonts (/fonts/) load only after consent — see consent.js -->
 <script defer src="consent.js"></script>
 <style>
@@ -30,6 +34,10 @@ h1{font-weight:200;font-size:clamp(32px,5vw,52px);letter-spacing:.14em;margin-bo
    ("Geschäftsbedingungen") are instead handled by shrinking the title on narrow screens
    below — see the max-width:600px block. */
 #legal-title{word-break:normal;overflow-wrap:normal;hyphens:none}
+/* Auto-synced legal text (IT-Recht Kanzlei) can contain long unbroken runs
+   (e.g. "____" signature lines in the Widerrufsformular) that overflow the
+   mobile column. Unlike headings, breaking mid-run here is harmless. */
+#legal-body{overflow-wrap:break-word}
 h2{font-weight:400;font-size:13px;letter-spacing:.24em;margin-top:40px;margin-bottom:14px}
 p{font-size:14px;color:var(--ink-soft);line-height:1.9;margin-bottom:10px}
 #legal-body div{color:var(--ink-soft);line-height:1.9}
