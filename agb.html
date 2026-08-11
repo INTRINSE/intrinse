@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Allgemeine Geschäftsbedingungen mit Kundeninformationen — INTRINSE</title>
 <link rel="canonical" href="https://intrinse.eu/agb.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Allgemeine Geschäftsbedingungen (AGB) mit Kundeninformationen für den Online-Shop von INTRINSE.">
 <!-- Self-hosted fonts (/fonts/) load only after consent — see consent.js -->
 <script defer src="consent.js"></script>
 <style>
@@ -30,6 +34,10 @@ h1{font-weight:200;font-size:clamp(32px,5vw,52px);letter-spacing:.14em;margin-bo
    ("Geschäftsbedingungen") are instead handled by shrinking the title on narrow screens
    below — see the max-width:600px block. */
 #legal-title{word-break:normal;overflow-wrap:normal;hyphens:none}
+/* Auto-synced legal text (IT-Recht Kanzlei) can contain long unbroken runs
+   (e.g. "____" signature lines in the Widerrufsformular) that overflow the
+   mobile column. Unlike headings, breaking mid-run here is harmless. */
+#legal-body{overflow-wrap:break-word}
 h2{font-weight:400;font-size:13px;letter-spacing:.24em;margin-top:40px;margin-bottom:14px}
 h2:first-of-type{margin-top:0}
 p{font-size:14px;color:var(--ink-soft);line-height:1.9;margin-bottom:10px}
@@ -215,7 +223,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
 
 <h2>10) Alternative Streitbeilegung</h2>
 
-<p>Der Verk&auml;ufer ist zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.</p></div><div id="itkanzlei_txt_copyright" style="font-size: 12px; margin-top: 8em;"><div style="display: inline-block; vertical-align: top;"><a href="https://www.it-recht-kanzlei.de/" target="_blank"><img src="https://www.it-recht-kanzlei.de/logo/Copyright-Logo_AGB.png?i=6e100-54882-39c7-907d-1" id="itkanzlei_img_copyright" alt="&copy; IT-Recht Kanzlei" title="&copy; IT-Recht Kanzlei" style="margin-top: -20px; border-style: none; max-width: 100%;" /></a></div><div style="display: inline-block; vertical-align: top; margin-left: 5px; float: right; white-space: nowrap;">Stand: 07.08.2026, 08:26:35</div><div style="clear: right;"></div></div>
+<p>Der Verk&auml;ufer ist zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.</p></div><div id="itkanzlei_txt_copyright" style="font-size: 12px; margin-top: 8em;"><div style="display: inline-block; vertical-align: top;"><a href="https://www.it-recht-kanzlei.de/" target="_blank"></a></div><div style="display: inline-block; vertical-align: top; margin-left: 5px; float: right; white-space: nowrap;">Stand: 07.08.2026, 08:26:35</div><div style="clear: right;"></div></div>
   <!-- LEGAL-BODY:END -->
   </div>
 </main>

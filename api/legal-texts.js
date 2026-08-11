@@ -63,7 +63,9 @@ function sanitizeLegalHtml(html) {
     .replace(/<object[\s\S]*?<\/object>/gi, '')
     .replace(/<embed[^>]*>/gi, '')
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
-    .replace(/javascript:/gi, '');
+    .replace(/javascript:/gi, '')
+    .replace(/<img[^>]*\bid=["']itkanzlei_img_copyright["'][^>]*>/gi, '')
+    .replace(/<img[^>]*\bsrc=["']https?:\/\/(?:www\.)?it-recht-kanzlei\.de\/logo\/[^"']*["'][^>]*>/gi, '');
 }
 
 // Escape any "%" not followed by two valid hex digits, so a stray literal
