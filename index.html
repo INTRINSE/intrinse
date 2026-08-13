@@ -110,20 +110,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 
 /* ── philosophy sequence — statement, states, one system ── */
 #philosophy{background:var(--stone)}
-/* Two earlier attempts both still showed a visible rate change right at the seam.
-   The actual cause: this pseudo spans -80px to +80px, but only the -80-to-0 half (over
-   the photo, inside #hero) ever does meaningful work. The 0-to-+80 half sits on top of
-   #philosophy's own flat var(--stone) background — showing stone-tinted overlay, at
-   any opacity, over an already-stone background is indistinguishable from plain
-   stone, so that whole half was visually inert regardless of what it faded to.
-   Spreading the alpha ramp across the full 160px meant it only reached 50% opacity by
-   the true boundary (y=0) — covering only half the photo — after which the *inert*
-   half made it look instantly, fully opaque, because the real background underneath
-   took over. That mismatch (50%-covered photo meeting an apparently-100%-opaque
-   result in zero pixels) was the actual kink. Reaching full opacity by the 50% mark
-   (the true seam) instead means the entire visible fade happens over the photo, where
-   it's actually needed; stone-on-stone for the remaining half is a no-op either way. */
-#philosophy::before{background:linear-gradient(180deg,rgba(217,218,219,0),var(--stone) 50%)}
+/* A linear alpha ramp fixed the hard edge and the earlier opacity-mismatch kink, but
+   still read as three zones: photo, then a visibly-changing 80px strip, then hundreds
+   of pixels of completely flat #philosophy background. A straight line has a fixed,
+   non-zero slope right up to its last stop, meeting the flat zone's zero slope
+   abruptly — that slope discontinuity is its own perceptible "band", even with no
+   jump in value. A smoothstep curve (3t²-2t³) has zero slope at *both* ends, so it
+   eases out of the photo and eases into the flat stone instead of meeting either at
+   constant speed — no boundary for the eye to lock onto. Spread across 140px (vs. 80)
+   for a slower, more photographic falloff. */
+#philosophy::before{top:-140px;height:140px;background:linear-gradient(180deg,
+    rgba(217,218,219,0) 0%,
+    rgba(217,218,219,.10) 20%,
+    rgba(217,218,219,.35) 40%,
+    rgba(217,218,219,.50) 50%,
+    rgba(217,218,219,.65) 60%,
+    rgba(217,218,219,.90) 80%,
+    var(--stone) 100%)}
 #philosophy::after{content:none}
 .phi-statement{font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.25;letter-spacing:0;max-width:600px}
 .phi-states{margin-top:clamp(80px,12vh,120px);display:flex;flex-direction:column;gap:clamp(70px,13vh,130px)}
