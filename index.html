@@ -127,7 +127,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
     rgba(217,218,219,.65) 60%,
     rgba(217,218,219,.90) 80%,
     var(--stone) 100%)}
-#philosophy::after{content:none}
+/* The photo itself is ~24 units darker at its bottom-right than its bottom-left (a
+   baked-in vignette/lighting falloff, not a CSS issue — confirmed by sampling the raw
+   photo before any overlay is applied) — the fade above was correct but uniform, so it
+   read as smoother on the left than the right where there was more brightness to
+   cover. This compensation layer needs its own vertical fade-in (same timing as
+   ::before, scaled to a lower ceiling) — a flat horizontal gradient with no vertical
+   variation was tried first and created a *new* hard edge at the box's own top,
+   turning on abruptly at full horizontal strength right where the box begins. Masking
+   this element horizontally (transparent left -> opaque right) instead of baking the
+   horizontal falloff into the gradient itself lets its own vertical stops (identical
+   timing to ::before, capped at .40 instead of 1) fade it in exactly in step. */
+#philosophy::after{content:"";position:absolute;top:-140px;left:0;right:0;height:140px;pointer-events:none;z-index:1;
+  background:linear-gradient(180deg,
+    rgba(217,218,219,0) 0%,
+    rgba(217,218,219,.25) 15%,
+    rgba(217,218,219,.38) 30%,
+    rgba(217,218,219,.40) 45%,
+    rgba(217,218,219,.40) 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 100%)}
 .phi-statement{font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.25;letter-spacing:0;max-width:600px}
 .phi-states{margin-top:clamp(80px,12vh,120px);display:flex;flex-direction:column;gap:clamp(70px,13vh,130px)}
 .phi-states span{display:block;font-family:var(--f2);font-weight:600;font-size:28px;line-height:1;letter-spacing:.35em;color:var(--ink-soft)}
