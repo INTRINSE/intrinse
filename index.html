@@ -110,43 +110,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 
 /* ── philosophy sequence — statement, states, one system ── */
 #philosophy{background:var(--stone)}
-/* A linear alpha ramp fixed the hard edge and the earlier opacity-mismatch kink, but
-   still read as three zones: photo, then a visibly-changing 80px strip, then hundreds
-   of pixels of completely flat #philosophy background. A straight line has a fixed,
-   non-zero slope right up to its last stop, meeting the flat zone's zero slope
-   abruptly — that slope discontinuity is its own perceptible "band", even with no
-   jump in value. A smoothstep curve (3t²-2t³) has zero slope at *both* ends, so it
-   eases out of the photo and eases into the flat stone instead of meeting either at
-   constant speed — no boundary for the eye to lock onto. Spread across 140px (vs. 80)
-   for a slower, more photographic falloff. */
-#philosophy::before{top:-140px;height:140px;background:linear-gradient(180deg,
-    rgba(217,218,219,0) 0%,
-    rgba(217,218,219,.10) 20%,
-    rgba(217,218,219,.35) 40%,
-    rgba(217,218,219,.50) 50%,
-    rgba(217,218,219,.65) 60%,
-    rgba(217,218,219,.90) 80%,
-    var(--stone) 100%)}
-/* The photo itself is ~24 units darker at its bottom-right than its bottom-left (a
-   baked-in vignette/lighting falloff, not a CSS issue — confirmed by sampling the raw
-   photo before any overlay is applied) — the fade above was correct but uniform, so it
-   read as smoother on the left than the right where there was more brightness to
-   cover. This compensation layer needs its own vertical fade-in (same timing as
-   ::before, scaled to a lower ceiling) — a flat horizontal gradient with no vertical
-   variation was tried first and created a *new* hard edge at the box's own top,
-   turning on abruptly at full horizontal strength right where the box begins. Masking
-   this element horizontally (transparent left -> opaque right) instead of baking the
-   horizontal falloff into the gradient itself lets its own vertical stops (identical
-   timing to ::before, capped at .40 instead of 1) fade it in exactly in step. */
-#philosophy::after{content:"";position:absolute;top:-140px;left:0;right:0;height:140px;pointer-events:none;z-index:1;
-  background:linear-gradient(180deg,
-    rgba(217,218,219,0) 0%,
-    rgba(217,218,219,.25) 15%,
-    rgba(217,218,219,.38) 30%,
-    rgba(217,218,219,.40) 45%,
-    rgba(217,218,219,.40) 100%);
-  mask-image:linear-gradient(90deg,transparent 0%,#000 100%);
-  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 100%)}
+/* Hero->philosophy is intentionally a hard, unblended cut — no fade/blur/mask overlay.
+   Explicitly disables the generic section::before pseudo-element (top:-80px;height:160px,
+   inherited from the base `section::before` rule) rather than leaving it as an
+   invisible-but-present empty box. */
+#philosophy::before{content:none}
 .phi-statement{font-weight:300;font-size:clamp(26px,3.4vw,38px);line-height:1.25;letter-spacing:0;max-width:600px}
 .phi-states{margin-top:clamp(80px,12vh,120px);display:flex;flex-direction:column;gap:clamp(70px,13vh,130px)}
 .phi-states span{display:block;font-family:var(--f2);font-weight:600;font-size:28px;line-height:1;letter-spacing:.35em;color:var(--ink-soft)}
@@ -322,18 +290,6 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
   .dec-1 .dec-name::before{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(175,98,67,.4) 0%,rgba(175,98,67,.22) 32%,rgba(175,98,67,.09) 58%,rgba(175,98,67,.03) 78%,transparent 92%)}
   .dec-2 .dec-name::before{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(60,85,91,.22) 0%,rgba(60,85,91,.12) 32%,rgba(60,85,91,.05) 58%,rgba(60,85,91,.02) 78%,transparent 92%)}
   .dec-3 .dec-name::before{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(163,143,121,.36) 0%,rgba(163,143,121,.2) 32%,rgba(163,143,121,.08) 58%,rgba(163,143,121,.03) 78%,transparent 92%)}
-}
-/* mobile fix 4 — the 140px hero fade zone (tuned against desktop's ~1000px, 100vh hero)
-   is a fixed pixel size, but on mobile #hero isn't 100vh: height:auto wraps tightly
-   around .hero-img, whose own height is width/1.785 (its natural aspect ratio) plus
-   105px of padding. In portrait (narrow width -> short image -> short hero), 140px ate
-   40-44% of the whole hero on real devices — cutting into the tagline instead of
-   starting after it. Landscape phones this width or narrower have a much taller image
-   (same ratio, wider width), so the same 140px was already a modest ~25-36% there and
-   wasn't reported as a problem — gating this to portrait specifically instead of
-   touching the shared 820px breakpoint or the desktop-tuned value. */
-@media(max-width:820px) and (orientation:portrait){
-  #philosophy::before,#philosophy::after{top:-72px;height:72px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
