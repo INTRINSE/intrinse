@@ -15,7 +15,7 @@ addEventListener('pageshow',forceTop);
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>INTRINSE | Premium Plant Protein &amp; Conscious Nutrition</title>
+<title>INTRINSE — Conscious Nutrition</title>
 <link rel="canonical" href="https://www.intrinse.eu/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -257,6 +257,11 @@ h2{font-weight:200;font-size:clamp(21px,3.1vw,38px);letter-spacing:.18em;line-he
 #reveal{background:linear-gradient(180deg,#d1d3d4,#caccce);text-align:center}
 #reveal::before{content:none}
 .rv{font-size:clamp(24px,4.2vw,50px);font-weight:200;line-height:1.32;letter-spacing:.16em}
+/* Below ~387px the sentence wraps on its own after "IS", leaving an unbalanced 3/1
+   split ("REVEAL WHAT IS" / "WITHIN."). Forces a deliberate break after "WHAT" instead
+   for an even 2/2 split; hidden everywhere the line already fits on one line. */
+.rv-break{display:none}
+@media(max-width:390px){.rv-break{display:block}}
 .rv-p{font-size:14.5px;color:var(--ink-soft);line-height:2;margin-top:30px;max-width:46ch;margin-left:auto;margin-right:auto}
 
 footer{position:relative;background:var(--ink);color:#b4b1ab;padding:64px 0 40px;font-size:11.5px;line-height:1.32;letter-spacing:.04em}
@@ -383,7 +388,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
           <h4>Unser Körper arbeitet ununterbrochen.</h4>
           <p>Während du diese Zeilen liest, geschieht in deinem Körper mehr, als wir bewusst wahrnehmen.<br>Milliarden von Zellen arbeiten gleichzeitig.<br>Manche erneuern Gewebe.<br>Andere reparieren kleine Schäden.<br>Wieder andere stellen Moleküle her, die wenige Augenblicke später bereits wieder gebraucht werden.<br>Nach außen wirkt unser Körper ruhig.<br>Im Inneren herrscht eine erstaunliche Betriebsamkeit.<br>Vielleicht nehmen wir sie gerade deshalb so selten wahr.</p>
           <h4>Nahrung schafft Möglichkeiten.</h4>
-          <p>Häufig sprechen wir über Lebensmittel, als hätten sie eine einzige Aufgabe.<br>Sie liefern Energie.<br>Oder Protein.<br>Oder Vitamine.<br>Unser Körper betrachtet Nahrung jedoch nicht in solchen Kategorien.<br>Er fragt nicht:<br>„Wie viele Kalorien enthält diese Mahlzeit?"<br>Er fragt vielmehr:<br>„Was kann ich daraus machen?"<br>Dieser kleine Unterschied verändert den Blick auf Ernährung.<br>Nahrung ist für unseren Körper nicht einfach Treibstoff.<br>Sie ist Ausgangspunkt.<br>Sie liefert die Bausteine und die Energie, aus denen unser Körper jeden Tag Neues entstehen lässt.</p>
+          <p>Häufig sprechen wir über Lebensmittel, als hätten sie eine einzige Aufgabe.<br>Sie liefern Energie.<br>Oder Protein.<br>Oder Vitamine.<br>Unser Körper betrachtet Nahrung jedoch nicht in solchen Kategorien.<br>Er fragt nicht:<br>„Wie viele Kalorien enthält diese Mahlzeit?“<br>Er fragt vielmehr:<br>„Was kann ich daraus machen?“<br>Dieser kleine Unterschied verändert den Blick auf Ernährung.<br>Nahrung ist für unseren Körper nicht einfach Treibstoff.<br>Sie ist Ausgangspunkt.<br>Sie liefert die Bausteine und die Energie, aus denen unser Körper jeden Tag Neues entstehen lässt.</p>
           <h4>Die Sprache der Biologie.</h4>
           <p>In der Ernährungswissenschaft begegnen uns viele Begriffe.<br>Proteine.<br>Fette.<br>Kohlenhydrate.<br>Vitamine.<br>Mineralstoffe.<br>Sie helfen uns, Nahrung zu beschreiben.<br>Unser Körper kennt diese Begriffe allerdings nicht.<br>Er arbeitet mit Molekülen.<br>Mit Signalen.<br>Mit Konzentrationen.<br>Mit Bedarf.<br>Vielleicht erklärt genau das, warum Ernährung so selten durch einfache Regeln verstanden werden kann.<br>Biologie ist kein starres System.<br>Sie ist lebendig.</p>
           <h4>Eine andere Frage.</h4>
@@ -394,7 +399,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
           <h4>Bausteine — Warum Protein weit mehr ist als Muskelaufbau.</h4>
           <p>Im ersten Kapitel haben wir gesehen, dass unser Körper sich ständig verändert.<br>Während wir leben, wird aufgebaut.<br>Erneuert.<br>Repariert.<br>Angepasst.<br>Fast automatisch entsteht daraus die nächste Frage.<br>Woraus baut unser Körper eigentlich all das auf?<br>Die Antwort beginnt bei erstaunlich kleinen Bausteinen.</p>
           <h4>Ein Wort mit Geschichte.</h4>
-          <p>Kaum ein Begriff begegnet uns im Zusammenhang mit Ernährung so häufig wie Protein.<br>Auf Verpackungen.<br>In Werbeanzeigen.<br>Im Fitnessstudio.<br>Man könnte fast meinen, Protein sei eine moderne Entdeckung.<br>Tatsächlich begleitet uns dieser Begriff schon seit dem 19. Jahrhundert.<br>Er leitet sich vom griechischen Wort proteios ab.<br>Es bedeutet sinngemäß:<br>„Von erster Bedeutung."<br>Eine bemerkenswert treffende Bezeichnung.<br>Nicht weil Protein wichtiger wäre als alle anderen Nährstoffe.<br>Sondern weil Wissenschaftler schon früh erkannten, welche grundlegende Rolle diese Stoffgruppe für das Leben spielt.</p>
+          <p>Kaum ein Begriff begegnet uns im Zusammenhang mit Ernährung so häufig wie Protein.<br>Auf Verpackungen.<br>In Werbeanzeigen.<br>Im Fitnessstudio.<br>Man könnte fast meinen, Protein sei eine moderne Entdeckung.<br>Tatsächlich begleitet uns dieser Begriff schon seit dem 19. Jahrhundert.<br>Er leitet sich vom griechischen Wort proteios ab.<br>Es bedeutet sinngemäß:<br>„Von erster Bedeutung.“<br>Eine bemerkenswert treffende Bezeichnung.<br>Nicht weil Protein wichtiger wäre als alle anderen Nährstoffe.<br>Sondern weil Wissenschaftler schon früh erkannten, welche grundlegende Rolle diese Stoffgruppe für das Leben spielt.</p>
           <h4>Mehr als Muskeln.</h4>
           <p>Fragt man nach Protein, denken viele Menschen zuerst an Muskelaufbau.<br>Das ist verständlich.<br>Muskeln bestehen zu einem großen Teil aus Proteinen.<br>Damit endet ihre Aufgabe jedoch längst nicht.<br>Proteine finden sich nahezu überall in unserem Körper.<br>In unserer Haut.<br>In unseren Haaren.<br>In Enzymen.<br>In Transportmolekülen.<br>In Antikörpern.<br>Und in unzähligen weiteren Strukturen, die wir im Alltag kaum wahrnehmen.<br>Vielleicht wird genau hier deutlich, warum Protein weit mehr ist als ein Thema für Sportler.<br>Es gehört zu den grundlegenden Bausteinen unseres Körpers.</p>
           <h4>Aus wenigen Bausteinen entsteht erstaunliche Vielfalt.</h4>
@@ -421,7 +426,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
           <h4>Die eigentliche Reise beginnt jetzt.</h4>
           <p>Nachdem Nährstoffe in kleinere Bestandteile zerlegt wurden, gelangen viele von ihnen über den Dünndarm in den Blutkreislauf.<br>Von dort aus beginnt ihre eigentliche Reise.<br>Vielleicht hilft auch hier ein Bild.<br>Stell dir einen Bahnhof vor.<br>Züge treffen aus allen Richtungen ein.<br>Menschen steigen aus.<br>Doch niemand würde behaupten, die Reise ende auf dem Bahnsteig.<br>Sie beginnt dort oft erst.<br>Mit Nährstoffen verhält es sich erstaunlich ähnlich.<br>Die Aufnahme ist nicht das Ziel.<br>Sie ist der Beginn.</p>
           <h4>Bioverfügbarkeit.</h4>
-          <p>In der Ernährungswissenschaft begegnet uns deshalb ein Begriff, der zunächst etwas technisch klingt.<br>Bioverfügbarkeit.<br>Er beschreibt vereinfacht, welcher Anteil eines aufgenommenen Nährstoffs dem Körper tatsächlich zur Verfügung steht.<br>Vielleicht steckt dahinter eine überraschend einfache Frage.<br>Nicht:<br>„Was esse ich?"<br>Sondern:<br>„Was kommt tatsächlich dort an, wo es gebraucht wird?"<br>Zwischen beiden Antworten kann ein Unterschied liegen.<br>Genau deshalb lohnt es sich, Ernährung nicht nur nach Inhaltsstoffen zu beurteilen.<br>Sondern auch danach, wie gut unser Körper mit ihnen arbeiten kann.</p>
+          <p>In der Ernährungswissenschaft begegnet uns deshalb ein Begriff, der zunächst etwas technisch klingt.<br>Bioverfügbarkeit.<br>Er beschreibt vereinfacht, welcher Anteil eines aufgenommenen Nährstoffs dem Körper tatsächlich zur Verfügung steht.<br>Vielleicht steckt dahinter eine überraschend einfache Frage.<br>Nicht:<br>„Was esse ich?“<br>Sondern:<br>„Was kommt tatsächlich dort an, wo es gebraucht wird?“<br>Zwischen beiden Antworten kann ein Unterschied liegen.<br>Genau deshalb lohnt es sich, Ernährung nicht nur nach Inhaltsstoffen zu beurteilen.<br>Sondern auch danach, wie gut unser Körper mit ihnen arbeiten kann.</p>
           <h4>Der Körper entscheidet.</h4>
           <p>Vielleicht ist genau das die wichtigste Erkenntnis dieses Kapitels.<br>Wir liefern Nahrung.<br>Unser Körper entscheidet.<br>Er entscheidet, welche Bausteine aufgenommen werden.<br>Welche gespeichert werden.<br>Welche unmittelbar genutzt werden.<br>Und welche wieder ausgeschieden werden.<br>Nicht weil er verschwenderisch wäre.<br>Sondern weil Leben ständige Anpassung bedeutet.<br>Vielleicht liegt gerade darin seine größte Stärke.</p>
           <h4>Eine stille Meisterleistung.</h4>
@@ -436,7 +441,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
           <h4>Wissenschaft funktioniert anders, als viele vermuten.</h4>
           <p>Vielleicht hilft auch hier ein anderer Blick.<br>Viele Menschen stellen sich Wissenschaft wie ein großes Nachschlagewerk vor.<br>Für jede Frage gibt es eine eindeutige Antwort.<br>Ist sie einmal gefunden, bleibt sie bestehen.<br>Tatsächlich ähnelt Wissenschaft eher einem Gespräch.<br>Neue Erkenntnisse kommen hinzu.<br>Bestehendes Wissen wird überprüft.<br>Manchmal bestätigt.<br>Manchmal korrigiert.<br>Nicht weil Wissenschaft unsicher wäre.<br>Sondern weil sie den Anspruch hat, sich ständig zu verbessern.<br>Vielleicht liegt genau darin ihre größte Stärke.</p>
           <h4>Eine Studie ist selten die ganze Geschichte.</h4>
-          <p>Wenn über Ernährung berichtet wird, beginnt ein Artikel häufig mit den Worten:<br>„Eine neue Studie zeigt..."<br>Das klingt zunächst überzeugend.<br>Und neue Studien können tatsächlich spannende Erkenntnisse liefern.<br>Gleichzeitig beantwortet eine einzelne Untersuchung nur selten eine komplexe wissenschaftliche Frage vollständig.<br>Vielleicht hilft auch hier ein Bild.<br>Stell dir ein großes Mosaik vor.<br>Jede Studie fügt einen weiteren Stein hinzu.<br>Erst viele sorgfältig zusammengesetzte Steine ergeben ein Bild, das nach und nach klarer wird.<br>Genau deshalb betrachten Wissenschaftler selten nur eine einzelne Veröffentlichung.<br>Sie versuchen, das gesamte Bild zu verstehen.</p>
+          <p>Wenn über Ernährung berichtet wird, beginnt ein Artikel häufig mit den Worten:<br>„Eine neue Studie zeigt...“<br>Das klingt zunächst überzeugend.<br>Und neue Studien können tatsächlich spannende Erkenntnisse liefern.<br>Gleichzeitig beantwortet eine einzelne Untersuchung nur selten eine komplexe wissenschaftliche Frage vollständig.<br>Vielleicht hilft auch hier ein Bild.<br>Stell dir ein großes Mosaik vor.<br>Jede Studie fügt einen weiteren Stein hinzu.<br>Erst viele sorgfältig zusammengesetzte Steine ergeben ein Bild, das nach und nach klarer wird.<br>Genau deshalb betrachten Wissenschaftler selten nur eine einzelne Veröffentlichung.<br>Sie versuchen, das gesamte Bild zu verstehen.</p>
           <h4>Gute Fragen verändern gute Antworten.</h4>
           <p>Vielleicht beginnt Orientierung deshalb mit einer anderen Art zu fragen.<br>Nicht: Ist dieses Lebensmittel gesund?<br>Sondern: Unter welchen Bedingungen könnte es sinnvoll sein?<br>Nicht: Ist Protein gut oder schlecht?<br>Sondern: Welche Rolle spielt Protein innerhalb einer ausgewogenen Ernährung?<br>Je präziser unsere Fragen werden, desto hilfreicher werden meist auch die Antworten.</p>
           <h4>Skepsis ist ein Zeichen von Interesse.</h4>
@@ -786,7 +791,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
 <!-- REVEAL -->
 <section id="reveal">
   <div class="wrap">
-    <div class="rv sr">REVEAL WHAT IS WITHIN.</div>
+    <div class="rv sr">REVEAL WHAT<br class="rv-break"> IS WITHIN.</div>
   </div>
 </section>
 </main>
