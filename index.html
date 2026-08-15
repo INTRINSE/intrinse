@@ -3,7 +3,12 @@
 <head>
 <script>
 history.scrollRestoration='manual';
-function forceTop(){if(!location.hash)window.scrollTo(0,0)}
+function isReload(){
+  var nav=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];
+  if(nav)return nav.type==='reload';
+  return !!(performance.navigation&&performance.navigation.type===1);
+}
+function forceTop(){if(isReload()||!location.hash)window.scrollTo(0,0)}
 forceTop();
 addEventListener('load',forceTop);
 addEventListener('pageshow',forceTop);
