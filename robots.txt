@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://intrinse.eu/sitemap.xml
+Sitemap: https://www.intrinse.eu/sitemap.xml

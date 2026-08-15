@@ -284,6 +284,6 @@ module.exports = async function handler(req, res) {
     status: 'success',
     meta_shopversion: API_VERSION,
     meta_modulversion: MODULE_VERSION,
-    target_url: `https://intrinse.eu/${targetFile}`,
+    target_url: `https://www.intrinse.eu/${targetFile}`,
   });
 };
