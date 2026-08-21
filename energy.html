@@ -171,6 +171,17 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+/* ── cookie consent ── */
+.consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:var(--ink);color:#b4b1ab;font-size:11.5px;line-height:1.32;letter-spacing:.04em;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.consent-banner.vis{opacity:1;transform:translateY(0)}
+.consent-in{max-width:1240px;margin:0 auto;padding:22px clamp(20px,5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.consent-copy{margin:0;max-width:64ch}
+.consent-copy a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.consent-actions{display:flex;gap:24px;flex:none}
+.consent-btn{all:unset;box-sizing:border-box;font-family:var(--f);font-size:11px;letter-spacing:.08em;color:#b4b1ab;cursor:pointer;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.25);transition:color .3s ease,border-color .3s ease}
+.consent-btn:hover,.consent-btn:focus-visible{color:#fff;border-color:#fff}
+.consent-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(max-width:600px){.consent-in{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -297,7 +308,7 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
   <div class="wrap f-g">
     <div class="f-logo">INTRINSE</div>
     <div class="f-links">
-      <a href="index.html#decision">Shop</a><a href="index.html#knowledge">Wissenswelt</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a><a href="widerruf.html">Widerruf</a><a href="mailto:hello@intrinse.eu">[Kontakt]</a>
+      <a href="index.html#decision">Shop</a><a href="index.html#knowledge">Wissenswelt</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a><a href="widerruf.html">Widerruf</a><a href="mailto:hello@intrinse.eu">[Kontakt]</a><a href="#" id="consent-manage">Cookie-Einstellungen</a>
     </div>
     <div>&copy; 2026 <span class="f-copy-brand">INTRINSE</span> — Nothing more, nothing less.</div>
   </div>
@@ -407,5 +418,15 @@ window.addEventListener('load', () => {
   });
 });
 </script>
+
+<div id="consent-banner" class="consent-banner" hidden role="dialog" aria-live="polite" aria-label="Cookie-Einstellungen">
+  <div class="consent-in">
+    <p class="consent-copy">Wir nutzen Google Analytics, um die Website zu verbessern. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+    <div class="consent-actions">
+      <button type="button" id="consent-decline" class="consent-btn">Ablehnen</button>
+      <button type="button" id="consent-accept" class="consent-btn">Akzeptieren</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
