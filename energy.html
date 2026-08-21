@@ -111,6 +111,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 .cart button:focus-visible, .shopify-buy__btn:focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px}
 .cart button span.arw{transition:transform .3s}
 .cart button:hover span.arw{transform:translateX(9px)}
+.qty-stepper{display:flex;align-items:stretch;width:100%;max-width:330px;margin-bottom:12px;border:1px solid rgba(156,82,60,.5)}
+.qty-stepper button{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:44px;font-family:var(--f);font-size:16px;color:var(--ink);cursor:pointer;transition:background .35s ease}
+.qty-stepper button:hover:not(:disabled){background:rgba(156,82,60,.1)}
+.qty-stepper button:disabled{cursor:default;opacity:.55}
+.qty-stepper button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.qty-stepper input{all:unset;box-sizing:border-box;flex:1;min-width:0;text-align:center;font-family:var(--f);font-size:14px;color:var(--ink);border-left:1px solid rgba(156,82,60,.3);border-right:1px solid rgba(156,82,60,.3);-moz-appearance:textfield}
+.qty-stepper input::-webkit-outer-spin-button,.qty-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qty-stepper input:disabled{cursor:default}
 #shopify-status{font-size:11px;line-height:1.32;color:var(--ink-soft);margin-top:14px;min-height:16px;letter-spacing:.05em}
 .p-legal{font-size:10px;color:var(--ink-soft);opacity:.85;line-height:1.7;margin-top:60px;text-align:center;max-width:50ch;margin-left:auto;margin-right:auto}
 
@@ -194,6 +202,11 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
 
         <div class="cart sr sr-d3">
           <div id="shopify-buy-mount"></div>
+          <div class="qty-stepper" id="fallbackQty">
+            <button type="button" id="qtyMinus" disabled aria-label="Menge verringern">&minus;</button>
+            <input type="number" id="qtyInput" value="1" min="1" max="99" step="1" inputmode="numeric" disabled aria-label="Menge">
+            <button type="button" id="qtyPlus" disabled aria-label="Menge erhöhen">+</button>
+          </div>
           <button id="fallbackBtn" type="button" disabled aria-disabled="true">LAUNCHING SOON.</button>
           <div id="shopify-status">INTRINSE startet in Kürze. Die erste Charge befindet sich in der finalen Produktion.</div>
         </div>
@@ -327,13 +340,37 @@ document.querySelectorAll('.pinfo-toggle').forEach(btn => {
 });
 
 if (!PRE_LAUNCH) {
-  document.getElementById('fallbackBtn').onclick = () => {
+  const qtyInput = document.getElementById('qtyInput');
+  const qtyMinus = document.getElementById('qtyMinus');
+  const qtyPlus = document.getElementById('qtyPlus');
+  const QTY_MIN = 1, QTY_MAX = 99;
+
+  function clampQty() {
+    let n = parseInt(qtyInput.value, 10);
+    if (!Number.isFinite(n)) n = QTY_MIN;
+    n = Math.min(QTY_MAX, Math.max(QTY_MIN, n));
+    qtyInput.value = n;
+    return n;
+  }
+
+  qtyMinus.disabled = false;
+  qtyPlus.disabled = false;
+  qtyInput.disabled = false;
+  qtyMinus.onclick = () => { qtyInput.value = clampQty() - 1; clampQty(); };
+  qtyPlus.onclick = () => { qtyInput.value = clampQty() + 1; clampQty(); };
+  qtyInput.onchange = clampQty;
+
+  const fallbackBtn = document.getElementById('fallbackBtn');
+  fallbackBtn.disabled = false;
+  fallbackBtn.removeAttribute('aria-disabled');
+  fallbackBtn.onclick = () => {
     const id = SHOPIFY.variants.ENERGY;
     if (!id || id.startsWith('YOUR_')) {
       document.getElementById('shopify-status').textContent = 'Shopify is not connected yet. Add your store domain and variant IDs in the SHOPIFY config.';
       return;
     }
-    window.location.href = `https://${SHOPIFY.domain}/cart/${id}:1`;
+    const qty = clampQty();
+    window.location.href = `https://${SHOPIFY.domain}/cart/${id}:${qty}`;
   };
 }
 
@@ -346,7 +383,7 @@ window.addEventListener('load', () => {
       id: SHOPIFY.products.ENERGY,
       node: mount,
       options: {
-        product:{contents:{img:false,title:false,price:false},text:{button:'CHOOSE ENERGY.'}},
+        product:{contents:{img:false,title:false,price:false,quantity:true,quantityIncrement:true,quantityDecrement:true},text:{button:'CHOOSE ENERGY.'}},
         cart:{text:{title:'CART',button:'CHECKOUT'}}
       }
     });
@@ -361,6 +398,7 @@ window.addEventListener('load', () => {
       const rendered = iframe && iframe.contentDocument && iframe.contentDocument.body && iframe.contentDocument.body.childElementCount > 0;
       if (rendered) {
         document.getElementById('fallbackBtn').style.setProperty('display', 'none', 'important');
+        document.getElementById('fallbackQty').style.setProperty('display', 'none', 'important');
         clearInterval(check);
       } else if (attempts > 20) {
         clearInterval(check);
