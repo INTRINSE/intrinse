@@ -141,10 +141,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 .pinfo-block p{font-size:13.5px;line-height:1.85;color:var(--ink-soft)}
 .pinfo-note{font-size:11px;color:var(--ink-soft);margin-bottom:10px}
 .pinfo-footnote{font-size:11px;color:var(--ink-soft);margin-top:14px;line-height:1.6}
-.pinfo-cert{display:flex;align-items:flex-start;gap:22px}
+.pinfo-cert-badges{display:flex;flex-wrap:wrap;align-items:center;gap:28px;margin-bottom:20px}
 .pinfo-cert-badge{flex:none;display:flex;flex-direction:column;align-items:center;gap:7px}
-.pinfo-cert-icon{width:66px;height:auto;display:block}
+.pinfo-cert-icon{height:52px;width:auto;display:block}
 .pinfo-cert-code{font-size:9.5px;letter-spacing:.05em;color:var(--ink-soft)}
+.pinfo-cert-origin{flex:none;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.pinfo-cert-origin span{position:relative;padding-left:11px;font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink);line-height:1.3;text-transform:uppercase}
+.pinfo-cert-origin span::before{content:"";position:absolute;left:0;top:1px;bottom:1px;width:3px;background:var(--ink-soft)}
 .pinfo-cert p{margin:0}
 
 .pinfo-table{width:100%;max-width:62ch;border-collapse:collapse;font-size:13px}
@@ -306,9 +309,16 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
         <div class="pinfo-block">
           <h3>Zertifizierung</h3>
           <div class="pinfo-cert">
-            <div class="pinfo-cert-badge">
-              <img class="pinfo-cert-icon" src="img/eu-bio-siegel.webp" alt="EU-Bio-Siegel" width="230" height="154">
-              <span class="pinfo-cert-code">DE-ÖKO-007</span>
+            <div class="pinfo-cert-badges">
+              <img class="pinfo-cert-icon" src="img/gmp-siegel.webp" alt="GMP-zertifiziert" width="204" height="216">
+              <img class="pinfo-cert-icon" src="img/haccp-siegel.webp" alt="HACCP-zertifiziert" width="226" height="216">
+              <div class="pinfo-cert-badge">
+                <img class="pinfo-cert-icon" src="img/eu-bio-siegel.webp" alt="EU-Bio-Siegel" width="230" height="154">
+                <span class="pinfo-cert-code">DE-ÖKO-007</span>
+              </div>
+              <div class="pinfo-cert-origin">
+                <span>Made</span><span>in</span><span>Germany</span>
+              </div>
             </div>
             <p>Hergestellt nach EU-Bio-Standards (Kontrollstelle DE-ÖKO-007) sowie unter GMP- und HACCP-zertifizierten Produktionsbedingungen.</p>
           </div>
