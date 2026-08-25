@@ -141,6 +141,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(217,218,219,
 .pinfo-block p{font-size:13.5px;line-height:1.85;color:var(--ink-soft)}
 .pinfo-note{font-size:11px;color:var(--ink-soft);margin-bottom:10px}
 .pinfo-footnote{font-size:11px;color:var(--ink-soft);margin-top:14px;line-height:1.6}
+.pinfo-cert{display:flex;align-items:flex-start;gap:22px}
+.pinfo-cert-badge{flex:none;display:flex;flex-direction:column;align-items:center;gap:7px}
+.pinfo-cert-icon{width:66px;height:auto;display:block}
+.pinfo-cert-code{font-size:9.5px;letter-spacing:.05em;color:var(--ink-soft)}
+.pinfo-cert p{margin:0}
 
 .pinfo-table{width:100%;max-width:62ch;border-collapse:collapse;font-size:13px}
 .pinfo-table th,.pinfo-table td{font-weight:300;padding:9px 0;border-top:1px solid var(--hair);font-variant-numeric:tabular-nums}
@@ -296,6 +301,17 @@ footer::before{content:"";position:absolute;top:-80px;left:0;right:0;height:160p
         <div class="pinfo-block">
           <h3>Hinweise</h3>
           <p>Die empfohlene tägliche Verzehrmenge nicht überschreiten. Außerhalb der Reichweite von kleinen Kindern aufbewahren. Nahrungsergänzungsmittel sind kein Ersatz für eine ausgewogene, abwechslungsreiche Ernährung sowie eine gesunde Lebensweise. Kühl, trocken und lichtgeschützt lagern.</p>
+        </div>
+
+        <div class="pinfo-block">
+          <h3>Zertifizierung</h3>
+          <div class="pinfo-cert">
+            <div class="pinfo-cert-badge">
+              <img class="pinfo-cert-icon" src="img/eu-bio-siegel.webp" alt="EU-Bio-Siegel" width="230" height="154">
+              <span class="pinfo-cert-code">DE-ÖKO-007</span>
+            </div>
+            <p>Hergestellt nach EU-Bio-Standards (Kontrollstelle DE-ÖKO-007) sowie unter GMP- und HACCP-zertifizierten Produktionsbedingungen.</p>
+          </div>
         </div>
 
       </div>
